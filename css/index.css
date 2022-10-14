@@ -265,17 +265,17 @@ body {
     transition: 0.3s;
     transition-property: all;
     background-color: rgb(176, 217, 255);
-    top: -20px;
+    margin-bottom: 20px;
 }
 
-@keyframes select_mod_back_fadeIn {
+@keyframes back_fadeIn {
     100% {
         width: 75px;
         height: 75px;
     }
 }
 
-@keyframes select_mod_back_fadeOut {
+@keyframes back_fadeOut {
     0% {
         width: 75px;
         height: 75px;
@@ -283,5 +283,117 @@ body {
     100% {
         width: 0;
         height: 0;
+    }
+}
+
+#about_game {
+    
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    height: 90%;
+    top: 5%;
+    bottom: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    transition: 0.3s;
+}
+
+#about_content {
+    height: 70%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: 0.3s;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(to right, rgba(255, 0, 0, 0) 40%, rgb(255, 255, 255) 40%, rgb(255, 255, 255) 60%, rgba(255, 166, 0, 0) 60%);
+    border-image-slice: 1;
+}
+
+#about_content > p{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    font-family: "font1";
+    font-weight: bold;
+    font-size: 30px;
+    color: rgb(218, 255, 212);
+    transition: 0.3s;
+    top: 1500px;
+}
+
+#about_content > p:hover {
+    transition: 0.3s;
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    padding-bottom: 30px;
+}
+
+#about_content > h1{
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
+    font-family: "font1";
+    font-weight: bold;
+    font-size: 50px;
+    color: rgb(218, 255, 212);
+    transition: 0.3s;
+    top: 1500px;
+}
+
+#about_content > h1:hover {
+    transition: 0.3s;
+    color: rgb(255, 255, 255);
+    font-size: 60px;
+    padding-top: 30px;
+}
+
+#about_back {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 0;
+    height: 0;
+    border-radius: 100%;
+    text-align: center;
+    background-color: white;
+    text-align: center;
+    line-height: 75px;
+    vertical-align: middle;
+    color: rgb(87, 87, 87);
+    font-size: 30px;
+    font-family: "font1";
+    font-weight: bold;
+    transition: 0.3s;
+    top: 0;
+}
+
+#about_back:hover {
+    transition: 0.3s;
+    background-color: rgb(190, 255, 233);
+    margin-bottom: 20px;
+}
+
+@keyframes text_fadeIn {
+    0% {
+        top: 1500px
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+@keyframes text_fadeOut {
+    0% {
+        top: 0px;
+    }
+    100% {
+        top: 1500px;
     }
 }

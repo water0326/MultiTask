@@ -5,7 +5,10 @@
     let indexWave = document.getElementById('index_wave');
     let gameSelectDiv = document.getElementById('select_div');
     let modSel = document.getElementsByClassName('select_mod');
-    let backBtn = document.getElementById('select_mod_back');
+    let modbackBtn = document.getElementById('select_mod_back');
+    let aboutbackBtn = document.getElementById('about_back');
+    let aboutDiv = document.getElementById('about_game');
+    let aboutTexts = document.getElementById('about_content').children;
     
     function indexButtonHover(num) {
         if(num == 0) {
@@ -59,9 +62,20 @@
                 }, 1300 + i * 200, i);
             }
             setTimeout(() => {
-                backBtn.style.animation = "select_mod_back_fadeIn 1s cubic-bezier(0.4, 1.4, 0.6, 1.1) forwards";
-            }, 1300 + i * 200);
+                modbackBtn.style.animation = "back_fadeIn 1s cubic-bezier(0.4, 1.4, 0.6, 1.1) forwards";
+            }, 2000 + i * 200);
             
+        }
+        else if(num == 1) {
+            fadeIn(aboutDiv, 0, 1);
+            for(var i = 0 ; i < aboutTexts.length ; i++) {
+                setTimeout((Idx) => {
+                    aboutTexts[Idx].style.animation = "text_fadeIn 1.5s cubic-bezier(0.4, 1.2, 0.6, 1.1) forwards";
+                }, 800 + 200 * i, i);
+            }
+            setTimeout(() => {
+                aboutbackBtn.style.animation = "back_fadeIn 1s cubic-bezier(0.4, 1.4, 0.6, 1.1) forwards";
+            }, 2500);
         }
     }
     
@@ -76,10 +90,10 @@
                 modSel[Idx].style.animation = "select_mod_fadeOut 1s cubic-bezier(0.4, 1.1, 0.6, 1.4) forwards";
             }, i * 200, (num + i) % modSel.length);
         }
-        backBtn.style.width = 0;
-        backBtn.style.height = 0;
+        modbackBtn.style.width = 0;
+        modbackBtn.style.height = 0;
         setTimeout(() => {
-            backBtn.style.animation = "select_mod_back_fadeOut 1s cubic-bezier(0.4, 1.1, 0.6, 1.4) forwards";
+            modbackBtn.style.animation = "back_fadeOut 1s cubic-bezier(0.4, 1.1, 0.6, 1.4) forwards";
         }, 200);
         fadeOut(gameSelectDiv, 1000);
         if(isContinue) {
@@ -91,5 +105,21 @@
         }
         
     }	
+
+    function aboutEvent(num) {
+        if(num == -1) {
+            for(var i = 0 ; i < aboutTexts.length ; i++) {
+                setTimeout((Idx) => {
+                    aboutTexts[Idx].style.animation = "text_fadeOut 1.5s cubic-bezier(0.4, -0.1, 0.6, -0.2) forwards";
+                }, 200 * i, i);
+            }
+            setTimeout(() => {
+                aboutbackBtn.style.animation = "back_fadeOut 1s cubic-bezier(0.4, 1.1, 0.6, 1.4) forwards";
+            }, 0);
+            fadeOut(aboutDiv, 1500);
+            waterDown();
+            fadeIn(indexDiv, 2000, 1.0);
+        }
+    }
 //}
 
