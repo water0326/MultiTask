@@ -1,32 +1,19 @@
-let indexDiv;
-let indexWebName;
-let indexButton;
-let indexWave;
-let gameSelectDiv;
-let modSel;
-let modbackBtn;
-let aboutbackBtn;
-let aboutDiv;
-let aboutTexts;
-let updateDiv;
+let indexDiv = document.getElementById('index');
+let indexWebName = document.getElementById('index_web_name');
+let indexButton = document.getElementsByClassName('index_button');
+let indexWave = document.getElementById('index_wave');
+let gameSelectDiv = document.getElementById('select_div');
+let modSel = document.getElementsByClassName('select_mod');
+let modbackBtn = document.getElementById('select_mod_back');
+let aboutbackBtn = document.getElementById('about_back');
+let aboutDiv = document.getElementById('about_game');
+let aboutTexts = document.getElementById('about_content').children;
+let updateDiv = document.getElementById('index_update_note');
 
-window.addEventListener('load', function() {
-    indexDiv = document.getElementById('index');
-    indexWebName = document.getElementById('index_web_name');
-    indexButton = document.getElementsByClassName('index_button');
-    indexWave = document.getElementById('index_wave');
-    gameSelectDiv = document.getElementById('select_div');
-    modSel = document.getElementsByClassName('select_mod');
-    modbackBtn = document.getElementById('select_mod_back');
-    aboutbackBtn = document.getElementById('about_back');
-    aboutDiv = document.getElementById('about_game');
-    aboutTexts = document.getElementById('about_content').children;
-    updateDiv = document.getElementById('index_update_note');
-});
     
 function indexButtonHover(num) {
     if(num == 0) {
-        document.body.style.backgroundColor = "rgb(105, 168, 223)";
+        document.body.style.backgroundColor = "#B5B2FF";
     }
     else if(num == 1) {
         document.body.style.backgroundColor = "rgb(105, 223, 166)";
@@ -112,16 +99,6 @@ function screenSetting(num) {
             //gameScrElements[i].style.opacity = "0";
         }    
     }
-}
-
-function gameStart(num) {
-    screenSetting(num);
-    for(var i = 0 ; i < num ; i++) {
-        setTimeout((Idx) => {
-            line_game(gameScrElements[Idx].children[0], num, Idx);
-        }, 4500, i);
-    }
-    
 }
 
 function modSelect(num) {

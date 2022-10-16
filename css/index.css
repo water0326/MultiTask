@@ -30,7 +30,7 @@
 
 body {
     font-family: 'font1';
-    background-color: rgb(105, 168, 223);
+    background-color: #B5B2FF;
     transition: 0.3s;
     transition-property: background-color;
 }
