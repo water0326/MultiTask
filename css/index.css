@@ -458,9 +458,11 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: gray;
     display: flex;
     flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
 }
 
 #game_score {
@@ -477,9 +479,10 @@ body {
 }
 
 #game_total_scr {
-    width: 100%;
-    height: 800px;
-    background-color: white;
+    width: 90%;
+    height: 90%;
+    margin-left: 5%;
+    margin-bottom: 5%;
     display: flex;
     justify-content: space-around;
 }
@@ -487,9 +490,11 @@ body {
 .game_screen {
     top: 0;
     bottom: 0;
-    margin: auto 0;
-    width: 100%;
-    padding-bottom: 100%;
-    border-radius: 50%;
-    background-color: rgb(16, 112, 112);
+    width: 0;
+    height: 0;
+    margin: 50px 20px;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    transition: 2s;
+    opacity: 1;
 }

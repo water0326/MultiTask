@@ -10,6 +10,8 @@
     let aboutDiv = document.getElementById('about_game');
     let aboutTexts = document.getElementById('about_content').children;
     let updateDiv = document.getElementById('index_update_note');
+    let gameStartDiv = document.getElementById('game_start');
+    let gameScrElements = document.getElementById('game_total_scr').children;
     
     function indexButtonHover(num) {
         if(num == 0) {
@@ -82,6 +84,29 @@
         }
     }
     
+    function screenSetting(num) {
+        for(var i = 0 ; i < gameScrElements.length ; i++) {
+            if(i < num) {
+                gameScrElements[i].style.width = "90%";
+                setTimeout((Idx) => {
+                    gameScrElements[Idx].style.height = "calc(100% - 50px)";
+                    gameScrElements[Idx].style.margin = "50px 20px";
+                    //gameScrElements[Idx].style.opacity = "1";
+                }, 1800, i);
+            }
+            else {
+                gameScrElements[i].style.width = "0";
+                gameScrElements[i].style.height = "0";
+                gameScrElements[i].style.margin = "0";
+                //gameScrElements[i].style.opacity = "0";
+            }    
+        }
+    }
+
+    function gameStart(num) {
+        screenSetting(num);
+    }
+
     function modSelect(num) {
         var isContinue = true;
         if(num == -1) {
@@ -105,6 +130,10 @@
         else {
             waterVisible(true);
             fadeIn(indexDiv, 2000, 1.0);
+        }
+        if(num >= 2) {
+            gameStart(num);
+            fadeIn(gameStartDiv, 1000, 1);
         }
         
     }	
