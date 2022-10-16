@@ -3,7 +3,7 @@ let gameTotalScr = document.getElementById('game_total_scr');
 let gameScore = document.getElementById('game_score');
 let gameScrElements = gameTotalScr.children;
 
-let line_color_code = ["#DAD9FF", "#E8D9FF", "#E8D9FF", "#DAD9FF"]
+let line_color_code = ["#DAD9FF", "#E8D9FF", "#E8D9FF", "#DAD9FF"];
 
 function line_game_bg_set(canvas, ctx, Idx) {
     ctx.beginPath();
