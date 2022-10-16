@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
-    <title>Multi Task</title>
+    <title>GAMENAME</title>
 </head>
 <body onload="">
     
@@ -20,6 +20,24 @@
             <button class = "index_button" onmouseover="indexButtonHover(2)" onclick="indexButtonClick(2)">게임 설정</button>
             <button class = "index_button" onmouseover="indexButtonHover(3)" onclick="indexButtonClick(3)">다른 웹</button>
         </div>
+        <div id = "index_update_note">
+
+            
+            <div id = "update_icon">! Update !<br>
+                <div id = "update_content">
+                    <!--dt : 날짜 / dd : 업데이트 내용-->
+                    <dl>
+                        <dt>22. 10. 13</dt>
+                        <dd>프로토타입</dd>
+                        <dt>22. 10. 14</dt>
+                        <dd>'게임 방법' 탭 개발</dd>
+                        <dt>22. 10. 15</dt>
+                        <dd>'업데이트 노트' 탭 개발</dd>
+                    </dl>
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <div id = "about_game">
@@ -31,7 +49,17 @@
         </div>
         <div id = "about_back" onclick="aboutEvent(-1)">Back</div>
     </div>
-
+<!-- Game Setting
+    <div id = "setting">
+        <div class = "setting_bubble">
+            <h1>-- 게임 룰 --</h1>
+            <p>아 몰라요</p>
+            <p>아 몰라요</p>
+            <p>아 몰라요</p>
+        </div>
+        <div id = "about_back" onclick="aboutEvent(-1)">Back</div>
+    </div>
+-->
     <div id = "select_div">
         <div id = "game_select_div">
             <div class = "select_mod" onclick = "modSelect(0)">
@@ -61,10 +89,21 @@
         </div>
         <div id = "select_mod_back" onclick = "modSelect(-1)">Back</div>
     </div>
+
+    <div id = "game_start">
+        <div id = "game_score">0</div>
+        <div id = "game_total_scr">
+            <div class = "game_screen" id = ""></div>
+            <div class = "game_screen" id = ""></div>
+            <div class = "game_screen" id = ""></div>
+            <div class = "game_screen" id = ""></div>
+        </div>
+    </div>
     
     
 
     <script src="js/index.js"></script>
+    <script src="js/game1.js"></script>
 
 </body>
 </html>

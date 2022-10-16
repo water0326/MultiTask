@@ -96,7 +96,6 @@ body {
 }
 
 .index_button:hover {
-    transition: 0.3s;
     font-size: 50px;
     color: black;
     animation: font_change 0.3s linear infinite;
@@ -145,6 +144,65 @@ body {
     border-radius: 1400px;
     animation: wave_rotate 10s linear infinite;
     transform-origin: 50% 50%;
+}
+
+#index_update_note {
+    position: absolute;
+    width: auto;
+    height: auto;
+    top: 20px;
+    right: 20px;
+    display: flex;
+}
+
+#update_icon {
+    background-color: #95e8ffef;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    color: white;
+    line-height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 50px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#update_icon:hover {
+    color: rgb(81, 61, 52);
+    background-color: #1fcfffd2;
+    width: 250px;
+    height: 500px;
+    border-radius: 25px;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#update_content {
+    width: 250px;
+    height: auto;
+    transition: 0.3s;
+}
+
+#update_content > dl {
+    color: rgb(81, 61, 52);
+    font-size: 30px;
+    padding: 0 10px;
+}
+
+#update_content > dl > dt {
+    font-size: 35px;
+    line-height: 35px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+#update_content > dl > dd {
+    font-size: 25px;
+    line-height: 25px;
+    margin: 0 20px 50px 20px;
+    text-align: left;
 }
 
 #select_div {
@@ -256,14 +314,12 @@ body {
 }
 
 .select_mod:hover {
-    transition: 0.3s;
     transition-property: all;
     background-color: rgb(176, 217, 255);
     top: -20px;
 }
 
 #select_mod_back:hover {
-    transition: 0.3s;
     transition-property: all;
     background-color: rgb(176, 217, 255);
     margin-bottom: 20px;
@@ -329,7 +385,6 @@ body {
 }
 
 #about_content > p:hover {
-    transition: 0.3s;
     color: rgb(255, 255, 255);
     font-size: 40px;
     padding-bottom: 30px;
@@ -349,7 +404,6 @@ body {
 }
 
 #about_content > h1:hover {
-    transition: 0.3s;
     color: rgb(255, 255, 255);
     font-size: 60px;
     padding-top: 30px;
@@ -376,7 +430,6 @@ body {
 }
 
 #about_back:hover {
-    transition: 0.3s;
     background-color: rgb(190, 255, 233);
     margin-bottom: 20px;
 }
@@ -397,4 +450,46 @@ body {
     100% {
         top: 1500px;
     }
+}
+
+#game_start {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+}
+
+#game_score {
+    width: 130px;
+    height: 130px;
+    line-height: 130px;
+    font-size: 130px;
+    vertical-align: middle;
+    color: black;
+    font: 'font1';
+    font-weight: bold;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#game_total_scr {
+    width: 100%;
+    height: 800px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+}
+
+.game_screen {
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    width: 100%;
+    padding-bottom: 100%;
+    border-radius: 50%;
+    background-color: rgb(16, 112, 112);
 }

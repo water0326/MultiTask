@@ -9,6 +9,7 @@
     let aboutbackBtn = document.getElementById('about_back');
     let aboutDiv = document.getElementById('about_game');
     let aboutTexts = document.getElementById('about_content').children;
+    let updateDiv = document.getElementById('index_update_note');
     
     function indexButtonHover(num) {
         if(num == 0) {
@@ -39,21 +40,23 @@
         }, time, item, opacity);
     }
     
-    function waterUp() {
-        indexWave.style.animation = "water_up 4s cubic-bezier(0.1, -0.15, 0.3, 0.2)";
-        fadeOut(indexWave, 1900);
-    }
-    function waterDown() {
-        fadeIn(indexWave, 0, 1.0);
-        indexWave.style.animation = "water_down 2s linear forwards";
-        setTimeout(() => {
-            indexWave.style.animation = "wave_rotate 10s linear infinite";
-        }, 2000);
+    function waterVisible(state) {
+        if(state == true) {
+            fadeIn(indexWave, 0, 1.0);
+            indexWave.style.animation = "water_down 2s linear forwards";
+            setTimeout(() => {
+                indexWave.style.animation = "wave_rotate 10s linear infinite";
+            }, 2000);
+        }
+        else {
+            indexWave.style.animation = "water_up 4s cubic-bezier(0.1, -0.15, 0.3, 0.2)";
+            fadeOut(indexWave, 1900);
+        }
     }
     
     function indexButtonClick(num) {
         fadeOut(indexDiv, 0);
-        waterUp();
+        waterVisible(false);
         if(num == 0) {
             fadeIn(gameSelectDiv, 1300, 1.0);
             for(var i = 0 ; i < modSel.length ; i++) {
@@ -100,7 +103,7 @@
             
         }
         else {
-            waterDown();
+            waterVisible(true);
             fadeIn(indexDiv, 2000, 1.0);
         }
         
@@ -117,9 +120,8 @@
                 aboutbackBtn.style.animation = "back_fadeOut 1s cubic-bezier(0.4, 1.1, 0.6, 1.4) forwards";
             }, 0);
             fadeOut(aboutDiv, 1500);
-            waterDown();
+            waterVisible(true);
             fadeIn(indexDiv, 2000, 1.0);
         }
     }
 //}
-
