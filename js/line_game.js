@@ -72,6 +72,7 @@ let rhythm_color_code;
 let rhythm_base_bg_color;
 let cor_incor_count;
 let rhythm_game_score;
+let rhythm_game_note_speed;
 
 function rhythm_game_init() {
     noteSize = 40;
@@ -94,6 +95,7 @@ function rhythm_game_init() {
     cor_incor_count = [0, 0, 0, 0];
     cor_incor_state = ["", "", "", ""];
     rhythm_game_score = 0;
+    rhythm_game_note_speed = 0.005;
 }
 
 function rhythm_game_control(e, isDown) {
@@ -201,6 +203,11 @@ function rhythm_game_update(canvas, Idx, velocity) {
     const note_cooldown = 1;
     const cor_incor_cooldown = 2;
 
+    if(rhythm_game_score >= 10000) {
+        rhythm_game_note_speed = 0.008;
+        ranTime = [40, 80];
+    }
+
     if(note_cycle[Idx] % note_cooldown == 0) {
         
         for(var i = 0 ; i < note_list[Idx].length ; i++) {
@@ -264,7 +271,7 @@ function rhythm_game(canvas, ctx, scr_count, Idx) {
 
     rhythm_game_bg_set(canvas, ctx, Idx);
     rhythm_game_obj_gen(canvas, Idx);
-    rhythm_game_update(canvas, Idx, 0.005);
+    rhythm_game_update(canvas, Idx, rhythm_game_note_speed);
     rhythm_game_obj_draw(canvas, ctx, Idx);
 
     
