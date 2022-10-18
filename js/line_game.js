@@ -114,9 +114,14 @@ function rhythm_game_control(e, isDown) {
                 rhythm_game_score_change(100);
                 break;
             }
-            else if(note_list[idx][i].is_touched_line(touchLineList[idx].y - (noteSize * 1.5 / gameScrElements[idx].children[0].height), noteSize * 0.5, gameScrElements[idx].children[0].height)) {
+            if(i == note_list[idx].length - 1) {
+                cor_incor_state[idx] = "incorrect";
+                cor_incor_count[idx] = 1;
+            }
+            /*else if(note_list[idx][i].is_touched_line(touchLineList[idx].y - (noteSize * 1.5 / gameScrElements[idx].children[0].height), noteSize * 0.5, gameScrElements[idx].children[0].height)) {
                 note_list[idx][i].isLive = false;
             }
+            */
         }
         
     }
