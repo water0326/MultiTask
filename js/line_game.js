@@ -34,10 +34,10 @@ class TouchLine {
     }
     returnLineColor() {
         if(this.pressed) {
-            return "#555555";
+            return "#44444444";
         }
         else {
-            return "#AAAAAA";
+            return "#44444488";
         }
     }
     returnBGColor() {
@@ -73,13 +73,15 @@ let rhythm_base_bg_color;
 let cor_incor_count;
 let rhythm_game_score;
 let rhythm_game_note_speed;
+let rhythm_note_cooldown_rate;
+let cor_incor_maxCount;
 
 function rhythm_game_init() {
     noteSize = 40;
     note_cycle = [0, 0, 0, 0];
     note_list = [[], [], [], []];
-    note_curTime = [0, 0, 0, 0];
-    note_cooldown = [0, 0, 0, 0];
+    note_curTime = [1, 1, 1, 1];
+    note_cooldown = [1, 1, 1, 1];
     ranTime = [50, 100];
     touchLineList = [new TouchLine(0.5, 0.8), new TouchLine(0.5, 0.8), new TouchLine(0.5, 0.8), new TouchLine(0.5, 0.8)];
     rhythm_base_bg_color = [218,217,255];
@@ -88,14 +90,16 @@ function rhythm_game_init() {
     incor_color = [255, 167, 167];
     cor_diff = [0, 0, 0];
     incor_diff = [0, 0, 0];
+    cor_incor_maxCount = 20;
     for(var i = 0 ; i < 3 ; i++) {
-        cor_diff[i] = (rhythm_base_bg_color[i] - cor_color[i]) / 10;
-        incor_diff[i] = (rhythm_base_bg_color[i] - incor_color[i]) / 10;
+        cor_diff[i] = (rhythm_base_bg_color[i] - cor_color[i]) / cor_incor_maxCount;
+        incor_diff[i] = (rhythm_base_bg_color[i] - incor_color[i]) / cor_incor_maxCount;
     }
     cor_incor_count = [0, 0, 0, 0];
     cor_incor_state = ["", "", "", ""];
     rhythm_game_score = 0;
-    rhythm_game_note_speed = 0.005;
+    rhythm_game_note_speed = 0.008;
+    rhythm_note_cooldown_rate = 1;
 }
 
 function rhythm_game_control(e, isDown) {
@@ -136,11 +140,20 @@ function rhythm_game_obj_gen(canvas, Idx) {
 
     // note gen //
     
+    
+
     note_curTime[Idx]++;
     if(note_curTime[Idx] >= note_cooldown[Idx]) {
-        setTimeout(() => {
-            note_list[Idx].push(new Note(0.5, 0));
-        }, note_cooldown);
+        // if(Idx == 3) {
+        //     console.log("-----");
+        //     for(var i = 0 ; i < 4 ; i++) {
+        //         console.log(i + " : " + note_curTime[i]);
+        //     }
+        //     console.log("-----");
+        // }
+        
+        
+        note_list[Idx].push(new Note(0.5, 0));
         note_curTime[Idx] = 0;
         note_cooldown[Idx] = ranTime[Math.floor(Math.random() * ranTime.length)];
     }
@@ -171,9 +184,9 @@ function rhythm_game_obj_draw(canvas, ctx, Idx) {
 
     // line draw //
     ctx.beginPath();
-    ctx.strokeStyle = "#00000000";
-    ctx.arc(touchLineList[Idx].x * canvas.width, touchLineList[Idx].y * canvas.height, noteSize, 0, 2 * Math.PI);
-    ctx.fillStyle = "#000000";
+    ctx.arc(touchLineList[Idx].x * canvas.width, touchLineList[Idx].y * canvas.height + (noteSize * 0.65), noteSize, 0, Math.PI);
+    ctx.arc(touchLineList[Idx].x * canvas.width, touchLineList[Idx].y * canvas.height - (noteSize * 0.65), noteSize, Math.PI, 2 * Math.PI);
+    ctx.lineTo(touchLineList[Idx].x * canvas.width + noteSize, touchLineList[Idx].y * canvas.height + (noteSize * 0.65))
     ctx.stroke();
     ctx.fillStyle = touchLineList[Idx].returnLineColor();
     ctx.fill();
@@ -193,23 +206,53 @@ function rhythm_game_obj_draw(canvas, ctx, Idx) {
     }
 }
 
-function rhythm_game_score_change(value) {
+function rhythm_game_score_change(value, Idx) {
     rhythm_game_score += value;
     gameScore.innerText = rhythm_game_score;
+
+    
+    if(rhythm_game_score >= 10000) {
+        rhythm_game_note_speed = 0.01;
+        //rhythm_note_cooldown_rate = 0.8;
+    }
 }
 
-function rhythm_game_update(canvas, Idx, velocity) {
+function error_value_calculate(pass_error_val, canvas, scr_count) {
+    var percentage;
+    var count = 0;
+    for(var k = 1 ; k < scr_count ; k++) {
+        //var j = 0;
+        for(var i = 0 ; i < note_list[k].length ; i++) {
+            for(var j = 0; j < note_list[0].length ; j++) {
+                percentage = Math.abs(note_list[k][i].y - note_list[0][j].y) / note_list[0][j].y * 100;
+                
+                if(percentage > 0.2 && percentage < pass_error_val) {
+                    count++;
+                    note_list[k][i].y = note_list[0][j].y;
+                    //note_list[k][i].isLive = false;
+                    break;
+                }
+            }
+        }
+    }
+    console.log(count);
+    
+    
+}
+
+function rhythm_game_update(canvas, Idx, velocity, scr_count) {
 
     const note_cooldown = 1;
     const cor_incor_cooldown = 2;
+    //const note_reset_cooldown = 1000;
 
-    if(rhythm_game_score >= 10000) {
-        rhythm_game_note_speed = 0.008;
-        ranTime = [40, 80];
-    }
+
+    // if(Idx == 0 && note_cycle[Idx] % note_reset_cooldown == 0) {
+    //     error_value_calculate(2, canvas, scr_count);
+    // }
 
     if(note_cycle[Idx] % note_cooldown == 0) {
-        
+        j = 0;
         for(var i = 0 ; i < note_list[Idx].length ; i++) {
             
             note_list[Idx][i].note_down(velocity);
@@ -223,7 +266,7 @@ function rhythm_game_update(canvas, Idx, velocity) {
         }
     }
     if(note_cycle[Idx] % cor_incor_cooldown == 0) {
-        if(cor_incor_count[Idx] <= 10 && cor_incor_count[Idx] >= -10) {
+        if(cor_incor_count[Idx] <= cor_incor_maxCount && cor_incor_count[Idx] >= (-1) * cor_incor_maxCount) {
             if(cor_incor_state[Idx] == "correct") {
                 // correct
                 if(cor_incor_count[Idx] <= 0) {
@@ -264,14 +307,23 @@ function rhythm_game_over(canvas, ctx, Idx) {
 }
 
 function rhythm_game(canvas, ctx, scr_count, Idx) {
+
+
     note_cycle[Idx] += 1;
-    if (note_cycle[Idx] > 99) {
+    if (note_cycle[Idx] > 999) {
         note_cycle[Idx] = 0;
     }
 
+
+    // if(note_list[Idx].length > 0) {
+    //     console.log(note_list[Idx][0].y);
+    // }
+    // if(Idx == 3) {
+    //     console.log("------");
+    // }
     rhythm_game_bg_set(canvas, ctx, Idx);
     rhythm_game_obj_gen(canvas, Idx);
-    rhythm_game_update(canvas, Idx, rhythm_game_note_speed);
+    rhythm_game_update(canvas, Idx, rhythm_game_note_speed, scr_count);
     rhythm_game_obj_draw(canvas, ctx, Idx);
 
     

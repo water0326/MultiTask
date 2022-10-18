@@ -11,6 +11,8 @@ let aboutTexts = document.getElementById('about_content').children;
 let updateDiv = document.getElementById('index_update_note');
 
     
+// 1858 X 977
+
 function indexButtonHover(num) {
     if(num == 0) {
         document.body.style.backgroundColor = "#B5B2FF";

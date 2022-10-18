@@ -14,8 +14,8 @@
 }
 
 :root {
-    --index_wave_size: 3000px;
-    --index_wave_top: -2500px;
+    --index_wave_size: 161.46vw;
+    --index_wave_top: -255.89vh;
 }
 
 * {
@@ -59,8 +59,9 @@ body {
     position: absolute;
     width: 90%;
     margin-left: 5%;
-    margin-top: 630px;
-    height: 220px;
+    top: 0;
+    margin-top: 64.48vh;
+    height: 22.52vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -134,14 +135,14 @@ body {
 #index_wave {
     position: absolute;
     top: var(--index_wave_top);
-    left: -2000px;
-    right: -2000px;
+    left: -107.64vw;
+    right: -107.64vw;
     margin-left: auto;
     margin-right: auto;
     background-color: white;
     width: var(--index_wave_size);
     height: var(--index_wave_size);
-    border-radius: 1400px;
+    border-radius: 75.35vw;
     animation: wave_rotate 10s linear infinite;
     transform-origin: 50% 50%;
 }
@@ -157,14 +158,14 @@ body {
 
 #update_icon {
     background-color: #95e8ffef;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 25px;
     color: white;
-    line-height: 50px;
+    line-height: 45px;
     text-align: center;
     vertical-align: middle;
-    font-size: 50px;
+    font-size: 45px;
     font-weight: bold;
     transition: 0.3s;
 }
@@ -186,29 +187,32 @@ body {
 }
 
 #update_content > dl {
+    width: 250px;
     color: rgb(81, 61, 52);
     font-size: 30px;
     padding: 0 10px;
 }
 
 #update_content > dl > dt {
+    width: 210px;
     font-size: 35px;
     line-height: 35px;
     text-align: left;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 #update_content > dl > dd {
+    width: 210px;
     font-size: 25px;
     line-height: 25px;
-    margin: 0 20px 50px 20px;
+    margin: 0 20px 0 20px;
     text-align: left;
 }
 
 #select_div {
     position: absolute;
-    width: 70%;
-    height: 500px;
+    width: 70vw;
+    height: 70vw;
     left: 15%;
     top: 0;
     bottom: 0;
@@ -224,24 +228,24 @@ body {
 }
 
 #game_select_div {
-    width: 100%;
-    height: 450px;
+    width: 70vw;
+    height: 70vw;
     display: flex;
     justify-content: space-around;
-    margin-bottom: 100px;
+    margin-bottom: 10.23vh;
 }
 
 @keyframes select_mod_fadeIn {
     100% {
-        width: 350px;
-        height: 350px;
+        width: 18.84vw;
+        height: 18.84vw;
     }
 }
 @keyframes select_mod_fadeOut {
 
     0% {
-        width: 350px;
-        height: 350px;
+        width: 18.84vw;
+        height: 18.84vw;
     }
     100% {
         width: 0px;
@@ -261,7 +265,7 @@ body {
     transition-property: background-color;
     transition: 0.3s;
     font-weight: bold;
-    font-size: 50px;
+    font-size: 2.70vw;
     font-family: 'font1';
     display: flex;
     align-items: center;
@@ -270,24 +274,26 @@ body {
 }
 
 .mod_name {
-    width: 300px;
-    height: 50px;
+    width: 16.15vw;
+    height: 16.15vw;
     text-align: center;
 }
 
 .keyboard_box {
-    width: 300px;
-    height: 50px;
+    width: 16.15vw;
+    height: 16.15vw;
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 .keyboard {
-    margin: 0 5px;
+    top: 3vw;
+    margin: 0 0.27vw;
     overflow: visible;
-    width: 50px;
-    height: 50px;
+    width: 2.70vw;
+    height: 2.70vw;
     background-color: rgb(72, 72, 72);
     text-align: center;
     border-radius: 10%;
@@ -295,17 +301,18 @@ body {
 }
 
 #select_mod_back {
+    position: absolute;
     width: 0px;
     height: 0px;
     background-color: white;
     border-radius: 100%;
-    top: 0;
+    top: 80%;
     left: 0;
     right: 0;
     margin: 0 auto;
-    font-size: 30px;
+    font-size: 1.61vw;
     text-align: center;
-    line-height: 75px;
+    line-height: 4.04vw;
     vertical-align: middle;
     font-family: 'font1';
     font-weight: bold;
@@ -322,20 +329,20 @@ body {
 #select_mod_back:hover {
     transition-property: all;
     background-color: rgb(176, 217, 255);
-    margin-bottom: 20px;
+    top: calc(80% - 20px);
 }
 
 @keyframes back_fadeIn {
     100% {
-        width: 75px;
-        height: 75px;
+        width: 4.04vw;
+        height: 4.04vw;
     }
 }
 
 @keyframes back_fadeOut {
     0% {
-        width: 75px;
-        height: 75px;
+        width: 4.04vw;
+        height: 4.04vw;
     }
     100% {
         width: 0;
