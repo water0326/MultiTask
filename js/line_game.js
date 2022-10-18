@@ -109,7 +109,7 @@ function rhythm_game_control(e, isDown) {
         if(touchLineList[idx].pressed) return;
         touchLineList[idx].pressed = true;
         for(var i = 0 ; i < note_list[idx].length ; i++) {
-            if(note_list[idx][i].is_touched_line(touchLineList[idx].y, noteSize, gameScrElements[idx].children[0].height)) {
+            if(note_list[idx][i].is_touched_line(touchLineList[idx].y, noteSize * 1.3, gameScrElements[idx].children[0].height)) {
                 note_list[idx].splice(i, 1);
                 cor_incor_state[idx] = "correct";
                 cor_incor_count[idx] = -1;

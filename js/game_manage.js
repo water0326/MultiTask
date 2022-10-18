@@ -36,30 +36,43 @@ function gameStart(num) {
             rhythm_game_control(e, false);
         });
     }
-
+    var canvas = [];
     for(var i = 0 ; i < num ; i++) {
-        setTimeout((Idx) => {
-
-            manage_game(gameScrElements[Idx].children[0], num, Idx, selectGame);
-        }, 4500, i);
+        canvas.push(gameScrElements[i].children[0]);
     }
+    setTimeout((canvas, num, selectGame) => {
+        manage_game(canvas, num, selectGame);
+    }, 4500, canvas, num, selectGame);
     
 }
 
-function manage_game(canvas, scr_count, Idx, gameName) {
-    if(canvas.getContext) {
-        var ctx = canvas.getContext('2d');
-
-        // rhythm game //
-        if(gameName == game_list[0]) {
-            setInterval((canvas, scr_count, Idx, ctx) => {
-                canvas_init_setting(canvas, Idx);
-                isGameScrActive[Idx] = true;
-                
+function manage_game(canvas, scr_count, gameName) {
     
-                rhythm_game(canvas, ctx, scr_count, Idx);
-            }, 10, canvas, scr_count, Idx, ctx);
+    var ctx = [];
+    for(var Idx = 0 ; Idx < scr_count ; Idx++) {
+        if(canvas[Idx].getContext) {
+            ctx.push(canvas[Idx].getContext('2d'));
+        }
+        else {
+            return;
+        }
+    }
+    
+
+    // rhythm game //
+    if(gameName == game_list[0]) {
+        for(var Idx = 0 ; Idx < scr_count ; Idx++) {    
+            canvas_init_setting(canvas[Idx], Idx);
+            isGameScrActive[Idx] = true;
         }
         
+        setInterval((canvas, scr_count, ctx) => {
+            
+                
+            for(var Idx = 0 ; Idx < scr_count ; Idx++) {    
+                rhythm_game(canvas[Idx], ctx[Idx], scr_count, Idx);
+            }
+            
+        }, 10, canvas, scr_count, ctx);
     }
 }
