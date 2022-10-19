@@ -105,11 +105,8 @@ function rhythm_game_init() {
 function rhythm_game_control(e, isDown) {
 
     var keyInput = e.key;
-    if (keyInput == 'A') {
-        keyInput = 'a';
-    }
-    else if(keyInput == 'S') {
-        keyInput = 's';
+    if (keyInput >= 'A' && keyInput <= 'Z') {
+        keyInput = String.fromCharCode(keyInput.codePointAt(0) + 32);
     }
     var idx = scrKeyCode.indexOf(keyInput);
     if (idx == -1) return;
