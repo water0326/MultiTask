@@ -103,9 +103,15 @@ function rhythm_game_init() {
 }
 
 function rhythm_game_control(e, isDown) {
-    
-    
-    var idx = scrKeyCode.indexOf(e.key);
+
+    var keyInput = e.key;
+    if (keyInput == 'A') {
+        keyInput = 'a';
+    }
+    else if(keyInput == 'S') {
+        keyInput = 's';
+    }
+    var idx = scrKeyCode.indexOf(keyInput);
     if (idx == -1) return;
     
 
