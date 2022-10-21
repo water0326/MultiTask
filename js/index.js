@@ -84,22 +84,21 @@ function indexButtonClick(num) {
     }
 }
 
-function screenSetting(num) {
-    for(var i = 0 ; i < gameScrElements.length ; i++) {
-        if(i < num) {
-            gameScrElements[i].style.width = "90%";
-            setTimeout((Idx) => {
-                gameScrElements[Idx].style.height = "calc(100% - 50px)";
-                gameScrElements[Idx].style.margin = "50px 20px";
-                //gameScrElements[Idx].style.opacity = "1";
-            }, 1500 + i * 300, i);
-        }
-        else {
-            gameScrElements[i].style.width = "0";
-            gameScrElements[i].style.height = "0";
-            gameScrElements[i].style.margin = "0";
-            //gameScrElements[i].style.opacity = "0";
-        }    
+function screenSetting(Idx) {
+
+    if(isGameScrActive[Idx]) {
+        gameScrElements[Idx].style.width = "90%";
+        setTimeout(() => {
+            gameScrElements[Idx].style.height = "calc(100% - 50px)";
+            gameScrElements[Idx].style.margin = "50px 20px";
+            //gameScrElements[Idx].style.opacity = "1";
+        }, 1500 + Idx);
+    }
+    else {
+        gameScrElements[Idx].style.width = "0";
+        gameScrElements[Idx].style.height = "0";
+        gameScrElements[Idx].style.margin = "0";
+        //gameScrElements[i].style.opacity = "0";
     }
 }
 

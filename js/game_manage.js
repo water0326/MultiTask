@@ -4,17 +4,20 @@ const game_list = ['rhythm'];
 
 function canvas_init_setting(canvas, Idx) {
 
-    setWidth = gameScrElements[Idx].offsetWidth;
+    setWidth = gameScrElements[Idx].offsetWidth + 10;
     setHeight = gameScrElements[Idx].offsetHeight + 10;
     canvas.width = setWidth;
     canvas.height = setHeight;
-    canvas.style.width = String(setWidth) + "px";
+    canvas.style.width = String(setWidth + 10) + "px";
     canvas.style.height = String(setHeight + 10) + "px";
 
 }
 
 function gameStart(num) {
-    screenSetting(num);
+    for(var i = 0 ; i < num ; i++) {
+        isGameScrActive[i] = true;
+        screenSetting(i);
+    }
 
     /*
             -------------- 랜덤 게임 추가 예정 --------------
@@ -25,7 +28,7 @@ function gameStart(num) {
     // rhythm game //
     if (selectGame == game_list[0]) {
         
-        rhythm_game_init();
+        rhythm_game_init(num);
 
         window.addEventListener("keydown", (e) => {
 
@@ -57,17 +60,16 @@ function manage_game(canvas, scr_count, gameName) {
             return;
         }
     }
-    
 
     // rhythm game //
     if(gameName == game_list[0]) {
-        for(var Idx = 0 ; Idx < scr_count ; Idx++) {    
-            canvas_init_setting(canvas[Idx], Idx);
-            isGameScrActive[Idx] = true;
-        }
+        
         
         setInterval((canvas, scr_count, ctx) => {
             
+            for(var Idx = 0 ; Idx < scr_count ; Idx++) {    
+                canvas_init_setting(canvas[Idx], Idx);
+            }
                 
             for(var Idx = 0 ; Idx < scr_count ; Idx++) {    
                 rhythm_game(canvas[Idx], ctx[Idx], scr_count, Idx);

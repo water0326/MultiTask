@@ -500,7 +500,7 @@ body {
     width: 0;
     height: 0;
     margin: 50px 20px;
-    border-radius: 100vw;
+    border-radius: 15vw;
     background-color: rgb(255, 255, 255);
     transition: 2s;
     opacity: 1;

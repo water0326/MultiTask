@@ -50,6 +50,49 @@ class TouchLine {
     }
 }
 
+class HP {
+    constructor(maxHP, currentHP, x, y, oneSize) {
+        this.maxHP = maxHP;
+        this.currentHP = currentHP;
+        this.x = x;
+        this.y = y;
+        this.size = oneSize;
+    }
+
+    HPChange(value) {
+        this.currentHP += value;
+        if(this.currentHP > maxHP) {
+            this.currentHP = maxHP;
+        }
+        else if(this.currentHP < 0) {
+            this.currentHP = 0;
+        }
+    }
+
+    // 3 -> all
+    // 2 -> 2 off
+    // 1 -> 1 off
+    // 0 -> 0 off
+
+
+    returnColor(idx) {
+        
+        if(idx < this.currentHP) {
+            // alive
+            return "#FFA7A7";
+        }
+        else {
+            // dead
+            return "#BDBDBD";
+        }
+        
+    }
+
+    isHP_Zero() {
+        return !this.currentHP;
+    }
+}
+
 let gameStartDiv = document.getElementById('game_start');
 let gameTotalScr = document.getElementById('game_total_scr');
 let gameScore = document.getElementById('game_score');
@@ -75,8 +118,10 @@ let rhythm_game_score;
 let rhythm_game_note_speed;
 let rhythm_note_cooldown_rate;
 let cor_incor_maxCount;
+let rhythm_health;
+const maxHP = 3;
 
-function rhythm_game_init() {
+function rhythm_game_init(num) {
     noteSize = 40;
     note_cycle = [0, 0, 0, 0];
     note_list = [[], [], [], []];
@@ -100,6 +145,10 @@ function rhythm_game_init() {
     rhythm_game_score = 0;
     rhythm_game_note_speed = 0.008;
     rhythm_note_cooldown_rate = 1;
+    rhythm_health = [];
+    for(var i = 0 ; i < num ; i++) {
+        rhythm_health.push(new HP(maxHP, maxHP, 0.5, 0.92, 40));
+    }
 }
 
 function rhythm_game_control(e, isDown) {
@@ -125,6 +174,7 @@ function rhythm_game_control(e, isDown) {
             }
             if(i == note_list[idx].length - 1) {
                 cor_incor_state[idx] = "incorrect";
+                rhythm_health[idx].HPChange(-1);
                 cor_incor_count[idx] = 1;
             }
             /*else if(note_list[idx][i].is_touched_line(touchLineList[idx].y - (noteSize * 1.5 / gameScrElements[idx].children[0].height), noteSize * 0.5, gameScrElements[idx].children[0].height)) {
@@ -161,6 +211,9 @@ function rhythm_game_obj_gen(canvas, Idx) {
         note_cooldown[Idx] = ranTime[Math.floor(Math.random() * ranTime.length)];
     }
 
+
+    //health_gen(canvas, idx)
+
 }
 
 function rhythm_game_bg_set(canvas, ctx, Idx) {
@@ -177,6 +230,18 @@ function rhythm_game_bg_set(canvas, ctx, Idx) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+function drawHeart(ctx, Idx, x, y, size, color) {
+    var radius = Math.round(size / 2);
+    ctx.beginPath();
+    ctx.fillStyle = color;
+    ctx.arc(x - radius / 2, y, radius / 2, 0.75 * Math.PI, 2 * Math.PI);
+    ctx.arc(x + radius / 2, y, radius / 2, Math.PI, 2.25 * Math.PI);
+    ctx.lineTo(x, y + radius * 1.2);
+    ctx.lineTo(x - (Math.cos(Math.PI / 4) + 1) * radius / 2, y + Math.cos(Math.PI / 4) * radius / 2);
+    ctx.fill();
+    ctx.closePath();
+}
+
 function rhythm_game_obj_draw(canvas, ctx, Idx) {
 
     // lineBG draw //
@@ -190,7 +255,6 @@ function rhythm_game_obj_draw(canvas, ctx, Idx) {
     ctx.arc(touchLineList[Idx].x * canvas.width, touchLineList[Idx].y * canvas.height + (noteSize * 0.65), noteSize, 0, Math.PI);
     ctx.arc(touchLineList[Idx].x * canvas.width, touchLineList[Idx].y * canvas.height - (noteSize * 0.65), noteSize, Math.PI, 2 * Math.PI);
     ctx.lineTo(touchLineList[Idx].x * canvas.width + noteSize, touchLineList[Idx].y * canvas.height + (noteSize * 0.65))
-    ctx.stroke();
     ctx.fillStyle = touchLineList[Idx].returnLineColor();
     ctx.fill();
     
@@ -207,6 +271,16 @@ function rhythm_game_obj_draw(canvas, ctx, Idx) {
         ctx.stroke();
         ctx.closePath();
     }
+
+    // HP draw //
+    
+    for(var i = 0 ; i < rhythm_health[Idx].maxHP ; i++) {
+        drawHeart(ctx, Idx, rhythm_health[Idx].x * canvas.width + (rhythm_health[Idx].size + 3) * ( i - 1 ), rhythm_health[Idx].y * canvas.height, rhythm_health[Idx].size, rhythm_health[Idx].returnColor(i));
+        
+    }
+
+
+    rhythm_health[Idx]
 }
 
 function rhythm_game_score_change(value, Idx) {
@@ -238,7 +312,7 @@ function error_value_calculate(pass_error_val, canvas, scr_count) {
             }
         }
     }
-    console.log(count);
+    
     
     
 }
@@ -265,6 +339,8 @@ function rhythm_game_update(canvas, Idx, velocity, scr_count) {
         if(note_list[Idx].length && note_list[Idx][0].is_note_out()) {
             note_list[Idx].shift();
             cor_incor_state[Idx] = "incorrect";
+            rhythm_health[Idx].HPChange(-1);
+            
             cor_incor_count[Idx] = 1;
         }
     }
@@ -300,6 +376,11 @@ function rhythm_game_update(canvas, Idx, velocity, scr_count) {
                 rhythm_color_code[Idx] = [...rhythm_base_bg_color];
             }
         }
+    }
+
+    if(rhythm_health[Idx].isHP_Zero()) {
+        isGameScrActive[Idx] = false;
+        screenSetting(Idx);
     }
 }
 
